@@ -9,6 +9,7 @@ const Hero = () => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [lottieData, setLottieData] = useState<any>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isProfessional, setIsProfessional] = useState(true);
 
   useEffect(() => {
     // Check if mobile on mount and when window resizes
@@ -113,14 +114,22 @@ const Hero = () => {
               className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.3s" }}
             >
-              Atlas: Where Code<br className="hidden sm:inline" />Meets Motion
+              {isProfessional ? (
+                <>Welcome to My<br className="hidden sm:inline" />Professional Journey</>
+              ) : (
+                <>Personal Side<br className="hidden sm:inline" />& Interests</>
+              )}
             </h1>
             
             <p 
               style={{ animationDelay: "0.5s" }} 
               className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-950 font-normal text-base sm:text-lg text-left"
             >
-              The humanoid companion that learns and adapts alongside you.
+              {isProfessional ? (
+                "Passionate developer creating innovative solutions that make a difference."
+              ) : (
+                "Exploring creativity, hobbies, and personal interests beyond the code."
+              )}
             </p>
             
             <div 
@@ -128,7 +137,7 @@ const Hero = () => {
               style={{ animationDelay: "0.7s" }}
             >
               <a 
-                href="#get-access" 
+                href="#details" 
                 className="flex items-center justify-center group w-full sm:w-auto text-center" 
                 style={{
                   backgroundColor: '#FE5C02',
@@ -142,7 +151,7 @@ const Hero = () => {
                   border: '1px solid white',
                 }}
               >
-                Request Access
+                Contact Me
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
@@ -161,15 +170,24 @@ const Hero = () => {
             ) : (
               <>
               <div className="absolute inset-0 bg-dark-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
-              <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
+              <div 
+                className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl cursor-pointer"
+                onClick={() => setIsProfessional(!isProfessional)}
+              >
                 <img 
                   ref={imageRef} 
-                  src="/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" 
-                  alt="Atlas Robot" 
+                  src={isProfessional ? "/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" : "/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png"} 
+                  alt={isProfessional ? "Professional Portrait" : "Personal Photo"} 
                   className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
-                  style={{ transformStyle: 'preserve-3d' }} 
+                  style={{ 
+                    transformStyle: 'preserve-3d',
+                    transform: isProfessional ? 'rotateY(0deg)' : 'rotateY(180deg)'
+                  }} 
                 />
                 <div className="absolute inset-0" style={{ backgroundImage: 'url("/hero-image.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', mixBlendMode: 'overlay', opacity: 0.5 }}></div>
+                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                  Click to {isProfessional ? 'see personal side' : 'see professional side'}
+                </div>
               </div>
               </>
             )}

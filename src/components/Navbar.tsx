@@ -63,17 +63,12 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
-          <a 
-            href="#" 
-            className="nav-link"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToTop();
-            }}
-          >
-            Home
-          </a>
-          <a href="#features" className="nav-link">About</a>
+          <a href="#hero" className="nav-link">About</a>
+          <a href="#why-me" className="nav-link">Experience</a>
+          <a href="#why-me" className="nav-link">Education</a>
+          <a href="#features" className="nav-link">Projects</a>
+          <a href="#features" className="nav-link">Skills</a>
+          <a href="#testimonials" className="nav-link">Achievements</a>
           <a href="#details" className="nav-link">Contact</a>
         </nav>
 
@@ -94,16 +89,34 @@ const Navbar = () => {
       )}>
         <nav className="flex flex-col space-y-8 items-center mt-8">
           <a 
-            href="#" 
+            href="#hero" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToTop();
+            onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
             }}
           >
-            Home
+            About
+          </a>
+          <a 
+            href="#why-me" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            onClick={() => {
+              setIsMenuOpen(false);
+              document.body.style.overflow = '';
+            }}
+          >
+            Experience
+          </a>
+          <a 
+            href="#why-me" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            onClick={() => {
+              setIsMenuOpen(false);
+              document.body.style.overflow = '';
+            }}
+          >
+            Education
           </a>
           <a 
             href="#features" 
@@ -113,7 +126,27 @@ const Navbar = () => {
               document.body.style.overflow = '';
             }}
           >
-            About
+            Projects
+          </a>
+          <a 
+            href="#features" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            onClick={() => {
+              setIsMenuOpen(false);
+              document.body.style.overflow = '';
+            }}
+          >
+            Skills
+          </a>
+          <a 
+            href="#testimonials" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            onClick={() => {
+              setIsMenuOpen(false);
+              document.body.style.overflow = '';
+            }}
+          >
+            Achievements
           </a>
           <a 
             href="#details" 
