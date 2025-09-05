@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface FeatureCardProps {
@@ -13,6 +13,8 @@ interface FeatureCardProps {
 
 const FeatureCard = ({ icon, title, description, index, href, image }: FeatureCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [imgSrc, setImgSrc] = useState<string | undefined>(image);
+  const [triedRoot, setTriedRoot] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,9 +42,23 @@ const FeatureCard = ({ icon, title, description, index, href, image }: FeatureCa
 
   const Inner = (
     <>
-      {image && (
+      {imgSrc && (
         <div className="aspect-[16/9] w-full overflow-hidden rounded-lg mb-4 bg-gray-100">
-          <img src={image} alt={title} className="w-full h-full object-cover" />
+          <img
+            src={imgSrc}
+            alt={title}
+            className="w-full h-full object-cover"
+            onError={() => {
+              // If the image is referenced under /projects but actually lives in /public root,
+              // try swapping "/projects/" with "/" once before falling back to placeholder.
+              if (!triedRoot && imgSrc?.startsWith('/projects/')) {
+                setTriedRoot(true);
+                setImgSrc(imgSrc.replace('/projects/', '/'));
+              } else {
+                setImgSrc('/placeholder.svg');
+              }
+            }}
+          />
         </div>
       )}
       <div className="rounded-full bg-pulse-50 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-pulse-500 mb-4 sm:mb-5">
