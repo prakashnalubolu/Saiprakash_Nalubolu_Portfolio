@@ -88,6 +88,10 @@ const HumanoidSection = () => {
       className="relative" 
       style={{ height: '300vh' }}
     >
+      {/* Invisible anchors to allow direct navigation to each card state */}
+      <div id="experience" style={{ position: 'absolute', top: '0vh', height: 1, width: 1 }} />
+      <div id="education" style={{ position: 'absolute', top: '100vh', height: 1, width: 1 }} />
+      <div id="achievements" style={{ position: 'absolute', top: '200vh', height: 1, width: 1 }} />
       <section className="w-full h-screen py-10 md:py-16 sticky top-0 overflow-hidden bg-white" id="why-me">
         <div className="container px-6 lg:px-8 mx-auto h-full flex flex-col">
           <div className="mb-2 md:mb-3">
@@ -95,13 +99,12 @@ const HumanoidSection = () => {
               <div className="pulse-chip opacity-0 animate-fade-in" style={{
                 animationDelay: "0.1s"
               }}>
-                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">02</span>
-                <span>Experience</span>
+                <span>Career Snapshot</span>
               </div>
             </div>
             
             <h2 className="section-title text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-1 md:mb-2">
-              Why Me?
+              Work, Study and Highlights
             </h2>
           </div>
           
@@ -132,11 +135,36 @@ const HumanoidSection = () => {
                 </div>
               </div>
               
-              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
-                <div className="max-w-lg">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                    Professional Experience & Technical Skills
-                  </h3>
+              {/* Experience card content: bright, legible on blue using white + subtle shadow */}
+              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-start overflow-y-auto">
+                <div className="w-full pr-2 md:pr-4">
+                  <div className="space-y-4 text-white text-lg sm:text-xl leading-relaxed drop-shadow-[0_1px_1px_rgba(0,0,0,0.65)]">
+                    <div>
+                      <p className="font-semibold text-white">Software Development Engineer in Test (Intern), MiHIN (Remote, Michigan)</p>
+                      <p className="text-white/95">Sep 2025 – Present</p>
+                      <ul className="list-disc pl-5 mt-2 space-y-1">
+                        <li>Building Selenium/Behave and API test suites for MiHIN’s Health Information Exchange, validating interoperability on AWS.</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">Research Assistant, Binghamton University</p>
+                      <p className="text-white/95">Sep 2024 – May 2025</p>
+                      <ul className="list-disc pl-5 mt-2 space-y-1">
+                        <li>Saved 33% processing time by automating histopathology image segmentation (contrast enhancement, H&amp;E deconvolution, watershed segmentation) for high‑resolution WSI images.</li>
+                        <li>Developed a deep learning survival model for lung cancer by fusing TCGA clinical data with histopathology features; applied SHAP to explain drivers (TNM stage, ECOG, NLR/PLR, morphology).</li>
+                        <li>Leveraged HPC GPU cluster for distributed training/inference of large‑scale histopathology models, optimizing runtime with PyTorch (FSDP) and CUDA on A100/H100/T4 GPUs.</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">Software Engineer in Test Automation, Citi Bank (through TCS)</p>
+                      <p className="text-white/95">Mar 2021 – Dec 2023</p>
+                      <ul className="list-disc pl-5 mt-2 space-y-1">
+                        <li>Boosted automation coverage from 66% to 87% by engineering Selenium Java frameworks with Cucumber (BDD) and embedding into Jenkins/Maven CI/CD pipelines.</li>
+                        <li>Prevented 400+ production defects by developing 1000+ automated tests for Citi's microservices‑based servicing platform.</li>
+                        <li>Led a team of 5 to ensure accurate communication to 30M+ users by automating customer servicing message workflows.</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -168,11 +196,20 @@ const HumanoidSection = () => {
                 </div>
               </div>
               
-              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
-                <div className="max-w-lg">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                    Educational Background & Continuous Learning
-                  </h3>
+              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-start justify-start pt-6 sm:pt-8 overflow-y-auto">
+                <div className="w-full pr-2 md:pr-4">
+                  <div className="space-y-4 text-white text-lg sm:text-xl leading-relaxed">
+                    <div>
+                      <p className="font-semibold text-white">Binghamton University, State University of New York</p>
+                      <p className="text-white/80">M.S. in Computer Science (AI track) • Jan 2024 – Dec 2025 • CGPA: 3.84/4.00</p>
+                      <p className="mt-2">Relevant Coursework: Machine Learning, Deep Learning, Artificial Intelligence, Human‑Computer Interaction, Design Patterns.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">Vellore Institute of Technology (VIT), Vellore</p>
+                      <p className="text-white/80">B.Tech in Computer Science and Engineering • Jul 2016 – Jun 2020</p>
+                      <p className="mt-2">Relevant Coursework: Data Structures &amp; Algorithms, Operating Systems, Database Management Systems, Software Engineering.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -204,11 +241,16 @@ const HumanoidSection = () => {
                 </div>
               </div>
               
-              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
-                <div className="max-w-lg">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                    My Approach: Quality, <span className="text-[#FC4D0A]">Innovation & Impact</span>
-                  </h3>
+              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-start justify-start pt-6 sm:pt-8 overflow-y-auto">
+                <div className="w-full pr-2 md:pr-4">
+                  <ul className="list-disc pl-5 space-y-2 text-white text-base sm:text-lg leading-relaxed">
+                    <li>
+                      Finalist, XFoundry Horizons challenge (NASA NEXPLORE 2040):
+                      <span className="block">Defined a high-impact Earth and Mars/Moon problem; presented solutions to NASA leaders, industry experts, and inventors.</span>
+                    </li>
+                    <li>Shipped a TSA Checkpoint Advisor web app in 7 hours; instant search for items allowed in luggage for all types of travel.</li>
+                    <li>Received 3 “On the Spot” awards from TCS.</li>
+                  </ul>
                 </div>
               </div>
             </div>

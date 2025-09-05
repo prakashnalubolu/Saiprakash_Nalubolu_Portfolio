@@ -1,69 +1,45 @@
-# Welcome to your Lovable project
+# Saiprakash Nalubolu — Portfolio
 
-## Project info
+Personal portfolio built with React, Vite, Tailwind CSS and TypeScript. Sections include intro, experience, education, achievements, projects (with links and images), references, and contact.
 
-**URL**: https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727
+## Local Development
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+1) Install deps
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2) Run dev server
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+3) Build
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run build
+```
 
-**Use GitHub Codespaces**
+## Contact Form Email (Vercel)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+This project includes a Vercel Serverless Function at `/api/contact` to send emails via Resend.
 
-## What technologies are used for this project?
+On Vercel, set these environment variables:
 
-This project is built with .
+- `RESEND_API_KEY`
+- `CONTACT_TO` (destination email)
+- `CONTACT_FROM` (e.g., `Portfolio <onboarding@resend.dev>` or your domain sender)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The form will POST to `/api/contact` and you will receive an email with the details.
 
-## How can I deploy this project?
+## Project Images
 
-Simply open [Lovable](https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727) and click on Share -> Publish.
+Place project preview images in `public/projects/` and name them:
 
-## I want to use a custom domain - is that possible?
+- `kitchbot.jpg`, `samethalu.jpg`, `toxicity.jpg`, `ocr.jpg`, `tsa.jpg`, `pokemon.jpg`
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## License
+
+Private repository. All rights reserved.

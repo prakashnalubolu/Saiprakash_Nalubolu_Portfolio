@@ -5,55 +5,81 @@ interface TestimonialProps {
   content: string;
   author: string;
   role: string;
-  gradient: string;
+  email: string;
+  phone: string;
+  yearsKnown: string;
   backgroundImage?: string;
 }
 
-const testimonials: TestimonialProps[] = [{
-  content: "Outstanding developer with exceptional problem-solving skills. Delivered our project ahead of schedule with innovative solutions.",
-  author: "Sarah Chen",
-  role: "Project Manager, Tech Solutions Inc.",
-  gradient: "from-blue-700 via-indigo-800 to-purple-900",
-  backgroundImage: "/background-section1.png"
-}, {
-  content: "Reliable, creative, and technically proficient. Their attention to detail and collaborative approach made our team more productive.",
-  author: "Michael Rodriguez",
-  role: "Senior Developer, Digital Innovations",
-  gradient: "from-indigo-900 via-purple-800 to-orange-500",
-  backgroundImage: "/background-section2.png"
-}, {
-  content: "Exceptional mentoring skills and deep technical knowledge. Always willing to help team members grow and learn new technologies.",
-  author: "Dr. Amara Patel",
-  role: "Tech Lead, Advanced Systems",
-  gradient: "from-purple-800 via-pink-700 to-red-500",
-  backgroundImage: "/background-section3.png"
-}, {
-  content: "Professional, dedicated, and results-driven. Their contributions significantly improved our development processes and code quality.",
-  author: "Jason Lee",
-  role: "CTO, StartupVenture",
-  gradient: "from-orange-600 via-red-500 to-purple-600",
-  backgroundImage: "/background-section1.png"
-}];
+const testimonials: TestimonialProps[] = [
+  {
+    content:
+      "Detail‑oriented and fast. Great at breaking down complex tasks and delivering reliable automation.",
+    author: "Challarapu Vidyasagar",
+    role: "Team Lead, Tata Consultancy Services",
+    email: "chvs.sagar345@gmail.com",
+    phone: "+1 904 898 8825",
+    yearsKnown: "3 years",
+    backgroundImage: "/background-section1.png",
+  },
+  {
+    content:
+      "Curious, rigorous, and dependable in research. Communicates findings clearly and iterates quickly.",
+    author: "Nancy Lan Guo",
+    role: "Research Professor, Binghamton University",
+    email: "nguo1@binghamton.edu",
+    phone: "+1 607 777 4884",
+    yearsKnown: "1 year",
+    backgroundImage: "/background-section2.png",
+  },
+  {
+    content:
+      "A collaborative teammate who ships. Pragmatic problem‑solver with solid test engineering instincts.",
+    author: "Krishna Chaitanya",
+    role: "Automation Tester, Tata Consultancy Services",
+    email: "tirupathichaitanya99@gmail.com",
+    phone: "+91 95428 00139",
+    yearsKnown: "3 years",
+    backgroundImage: "/background-section3.png",
+  },
+  {
+    content:
+      "Consistent, thoughtful, and eager to learn. Balances speed with maintainability.",
+    author: "Sriharsha Madala",
+    role: "Senior Developer, Microsoft (Mentor)",
+    email: "sriharsha.madala@gmail.com",
+    phone: "+1 979 587 9579",
+    yearsKnown: "10+ years",
+    backgroundImage: "/background-section1.png",
+  },
+];
 
 const TestimonialCard = ({
   content,
   author,
   role,
-  backgroundImage = "/background-section1.png"
+  email,
+  phone,
+  yearsKnown,
+  backgroundImage = "/background-section1.png",
 }: TestimonialProps) => {
-  return <div className="bg-cover bg-center rounded-lg p-8 h-full flex flex-col justify-between text-white transform transition-transform duration-300 hover:-translate-y-2 relative overflow-hidden" style={{
-    backgroundImage: `url('${backgroundImage}')`
-  }}>
-      <div className="absolute top-0 right-0 w-24 h-24 bg-white z-10"></div>
-      
+  return (
+    <div
+      className="bg-cover bg-center rounded-lg p-6 sm:p-8 h-full flex flex-col justify-between text-white relative overflow-hidden"
+      style={{ backgroundImage: `url('${backgroundImage}')` }}
+    >
       <div className="relative z-0">
-        <p className="text-xl mb-8 font-medium leading-relaxed pr-20">{`"${content}"`}</p>
-        <div>
-          <h4 className="font-semibold text-xl">{author}</h4>
-          <p className="text-white/80">{role}</p>
+        <p className="text-base sm:text-lg mb-6 font-medium leading-relaxed">{`"${content}"`}</p>
+        <div className="space-y-1">
+          <h4 className="font-semibold text-lg sm:text-xl">{author}</h4>
+          <p className="text-white/80 text-sm sm:text-base">{role}</p>
+          <p className="text-white/80 text-sm">
+            <a href={`mailto:${email}`} className="underline underline-offset-2">{email}</a> • <a href={`tel:${phone.replace(/\s/g,'')}`} className="underline underline-offset-2">{phone}</a> • {yearsKnown}
+          </p>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
 
 const Testimonials = () => {
@@ -63,18 +89,28 @@ const Testimonials = () => {
       <div className="section-container opacity-0 animate-on-scroll">
         <div className="flex items-center gap-4 mb-6">
           <div className="pulse-chip">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">04</span>
             <span>References</span>
           </div>
         </div>
         
-        <h2 className="text-5xl font-display font-bold mb-12 text-left">References & Feedback</h2>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {testimonials.map((testimonial, index) => <TestimonialCard key={index} content={testimonial.content} author={testimonial.author} role={testimonial.role} gradient={testimonial.gradient} backgroundImage={testimonial.backgroundImage} />)}
+          {testimonials.map((t, index) => (
+            <TestimonialCard
+              key={index}
+              content={t.content}
+              author={t.author}
+              role={t.role}
+              email={t.email}
+              phone={t.phone}
+              yearsKnown={t.yearsKnown}
+              backgroundImage={t.backgroundImage}
+            />
+          ))}
         </div>
       </div>
     </section>;
 };
 
 export default Testimonials;
+
+

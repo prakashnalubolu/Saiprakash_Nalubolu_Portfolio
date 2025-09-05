@@ -4,11 +4,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import HumanoidSection from "@/components/HumanoidSection";
 import DetailsSection from "@/components/DetailsSection";
-import ImageShowcaseSection from "@/components/ImageShowcaseSection";
 import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
-
-import MadeByHumans from "@/components/MadeByHumans";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -46,11 +43,16 @@ const Index = () => {
         const targetElement = document.getElementById(targetId);
         if (!targetElement) return;
         
-        // Increased offset to account for mobile nav
-        const offset = window.innerWidth < 768 ? 100 : 80;
-        
+        // Offset equals current header height + small gap
+        const header = document.querySelector('header') as HTMLElement | null;
+        const offset = (header?.offsetHeight ?? 64) + 16;
+
+        // Use document-relative position for accurate scrolling
+        const rect = targetElement.getBoundingClientRect();
+        const targetY = rect.top + window.scrollY - offset;
+
         window.scrollTo({
-          top: targetElement.offsetTop - offset,
+          top: targetY,
           behavior: 'smooth'
         });
       });
@@ -62,12 +64,14 @@ const Index = () => {
       <Navbar />
       <main className="space-y-4 sm:space-y-8"> {/* Reduced space on mobile */}
         <Hero />
+        {/* Experience, Education, Achievements cards */}
         <HumanoidSection />
-        <DetailsSection />
-        <ImageShowcaseSection />
+        {/* Projects */}
         <Features />
+        {/* References & Feedback */}
         <Testimonials />
-        <MadeByHumans />
+        {/* Contact info and form at the bottom */}
+        <DetailsSection />
       </main>
       <Footer />
     </div>

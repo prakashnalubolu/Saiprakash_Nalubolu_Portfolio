@@ -17,24 +17,31 @@ const DetailsSection = () => {
       [name]: value
     }));
   };
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simple validation
     if (!formData.fullName || !formData.email) {
       toast.error("Please fill in all required fields");
       return;
     }
 
-    // Demo form submission
-    toast.success("Request submitted successfully!");
-
-    // Reset form
-    setFormData({
-      fullName: "",
-      email: "",
-      company: ""
-    });
+    try {
+      const r = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          company: formData.company,
+        }),
+      });
+      const data = await r.json();
+      if (!r.ok || !data.ok) throw new Error(data.error || 'Failed to send');
+      toast.success('Message sent! I will get back to you soon.');
+      setFormData({ fullName: '', email: '', company: '' });
+    } catch (err: any) {
+      toast.error(`Could not send message: ${err?.message || 'Unknown error'}`);
+    }
   };
   return <section id="details" className="w-full bg-white py-0">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
@@ -42,7 +49,7 @@ const DetailsSection = () => {
           {/* Left Card - The Details */}
           <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant">
             {/* Card Header with background image instead of gradient */}
-            <div className="relative h-48 sm:h-64 p-6 sm:p-8 flex items-end" style={{
+            <div className="relative h-36 sm:h-44 p-6 sm:p-8 flex items-end" style={{
             backgroundImage: "url('/background-section3.png')",
             backgroundSize: "cover",
             backgroundPosition: "center"
@@ -57,9 +64,7 @@ const DetailsSection = () => {
             backgroundColor: "#FFFFFF",
             border: "1px solid #ECECEC"
           }}>
-              <h3 className="text-lg sm:text-xl font-display mb-6 sm:mb-8">
-                Social media accounts & availability
-              </h3>
+              
 
               <div className="space-y-4 sm:space-y-6">
                 <div className="flex items-start gap-3">
@@ -70,7 +75,7 @@ const DetailsSection = () => {
                   </div>
                   <div className="flex-1">
                     <div className="p-3 rounded-lg bg-gray-50/80 backdrop-blur-sm border border-gray-100">
-                      <span className="font-semibold text-base">LinkedIn:</span> /in/your-profile
+                      <span className="font-semibold text-base">LinkedIn:</span> <a href="https://www.linkedin.com/in/saiprakashnalubolu/" target="_blank" rel="noopener noreferrer" className="hover:underline cursor-pointer text-blue-600">linkedin.com/in/saiprakashnalubolu/</a>
                     </div>
                   </div>
                 </div>
@@ -83,7 +88,7 @@ const DetailsSection = () => {
                   </div>
                   <div className="flex-1">
                     <div className="p-3 rounded-lg bg-gray-50/80 backdrop-blur-sm border border-gray-100">
-                      <span className="font-semibold text-base">GitHub:</span> /your-username
+                      <span className="font-semibold text-base">GitHub:</span> <a href="https://github.com/prakashnalubolu" target="_blank" rel="noopener noreferrer" className="hover:underline cursor-pointer text-blue-600">github.com/prakashnalubolu</a>
                     </div>
                   </div>
                 </div>
@@ -96,7 +101,7 @@ const DetailsSection = () => {
                   </div>
                   <div className="flex-1">
                     <div className="p-3 rounded-lg bg-gray-50/80 backdrop-blur-sm border border-gray-100">
-                      <span className="font-semibold text-base">Twitter:</span> @your-handle
+                      <span className="font-semibold text-base">Phone:</span> +1 (425) 364‑9845
                     </div>
                   </div>
                 </div>
@@ -109,7 +114,7 @@ const DetailsSection = () => {
                   </div>
                   <div className="flex-1">
                     <div className="p-3 rounded-lg bg-gray-50/80 backdrop-blur-sm border border-gray-100">
-                      <span className="font-semibold text-base">Availability:</span> Open to opportunities
+                      <span className="font-semibold text-base">Availability:</span> Whenever I'm awake :P
                     </div>
                   </div>
                 </div>
@@ -121,8 +126,13 @@ const DetailsSection = () => {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <div className="p-3 rounded-lg bg-gray-50/80 backdrop-blur-sm border border-gray-100">
-                      <span className="font-semibold text-base">Email:</span> your.email@domain.com
+                    <div className="p-3 rounded-lg bg-gray-50/80 backdrop-blur-sm border border-gray-100 space-y-1">
+                      <div>
+                        <span className="font-semibold text-base">College Email:</span> <a href="mailto:snalubolu@binghamton.edu" className="hover:underline cursor-pointer text-blue-600">snalubolu@binghamton.edu</a>
+                      </div>
+                      <div>
+                        <span className="font-semibold text-base">Personal Email:</span> <a href="mailto:saiprakash.nalubolu@gmail.com" className="hover:underline cursor-pointer text-blue-600">saiprakash.nalubolu@gmail.com</a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -133,7 +143,7 @@ const DetailsSection = () => {
           {/* Right Card - Contact Form */}
           <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant">
             {/* Card Header with background image instead of gradient */}
-            <div className="relative h-48 sm:h-64 p-6 sm:p-8 flex flex-col items-start" style={{
+            <div className="relative h-36 sm:h-44 p-6 sm:p-8 flex flex-col items-start" style={{
             backgroundImage: "url('/background-section1.png')",
             backgroundSize: "cover",
             backgroundPosition: "center"
@@ -203,3 +213,4 @@ const DetailsSection = () => {
     </section>;
 };
 export default DetailsSection;
+

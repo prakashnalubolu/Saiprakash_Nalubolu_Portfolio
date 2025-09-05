@@ -52,11 +52,11 @@ const Navbar = () => {
             e.preventDefault();
             scrollToTop();
           }}
-          aria-label="Pulse Robot"
+          aria-label="Saiprakash Nalubolu"
         >
           <img 
             src="/logo.svg" 
-            alt="Pulse Robot Logo" 
+            alt="Saiprakash Nalubolu Logo" 
             className="h-7 sm:h-8" 
           />
         </a>
@@ -64,11 +64,11 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
           <a href="#hero" className="nav-link">About</a>
-          <a href="#why-me" className="nav-link">Experience</a>
-          <a href="#why-me" className="nav-link">Education</a>
-          <a href="#features" className="nav-link">Projects</a>
-          <a href="#features" className="nav-link">Skills</a>
-          <a href="#testimonials" className="nav-link">Achievements</a>
+          <a href="#experience" className="nav-link">Experience</a>
+          <a href="#education" className="nav-link">Education</a>
+          <a href="#achievements" className="nav-link">Achievements</a>
+          <a href="#projects" className="nav-link">Projects</a>
+          <a href="#testimonials" className="nav-link">References</a>
           <a href="#details" className="nav-link">Contact</a>
         </nav>
 
@@ -99,7 +99,7 @@ const Navbar = () => {
             About
           </a>
           <a 
-            href="#why-me" 
+            href="#experience" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
             onClick={() => {
               setIsMenuOpen(false);
@@ -109,7 +109,7 @@ const Navbar = () => {
             Experience
           </a>
           <a 
-            href="#why-me" 
+            href="#education" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
             onClick={() => {
               setIsMenuOpen(false);
@@ -119,7 +119,17 @@ const Navbar = () => {
             Education
           </a>
           <a 
-            href="#features" 
+            href="#achievements" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            onClick={() => {
+              setIsMenuOpen(false);
+              document.body.style.overflow = '';
+            }}
+          >
+            Achievements
+          </a>
+          <a 
+            href="#projects" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
             onClick={() => {
               setIsMenuOpen(false);
@@ -129,16 +139,6 @@ const Navbar = () => {
             Projects
           </a>
           <a 
-            href="#features" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
-          >
-            Skills
-          </a>
-          <a 
             href="#testimonials" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
             onClick={() => {
@@ -146,7 +146,7 @@ const Navbar = () => {
               document.body.style.overflow = '';
             }}
           >
-            Achievements
+            References
           </a>
           <a 
             href="#details" 
