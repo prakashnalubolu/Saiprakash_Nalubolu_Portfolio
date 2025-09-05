@@ -24,12 +24,12 @@ const testimonials: TestimonialProps[] = [
   },
   {
     content:
-      "Curious, rigorous, and dependable in research. Communicates findings clearly and iterates quickly.",
-    author: "Nancy Lan Guo",
-    role: "Research Professor, Binghamton University",
-    email: "nguo1@binghamton.edu",
-    phone: "+1 607 777 4884",
-    yearsKnown: "1 year",
+      "Curious, rigorous, and dependable. Communicates findings clearly and iterates quickly.",
+    author: "Hemayamini Kurra",
+    role: "IBM Red team, Penetration Tester",
+    email: "hemayaminikurra@gmail.com",
+    phone: "+1 520 704 5930",
+    yearsKnown: "5 year",
     backgroundImage: "/background-section2.png",
   },
   {
