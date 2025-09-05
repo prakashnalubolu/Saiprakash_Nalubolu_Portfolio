@@ -139,7 +139,7 @@ const Features = () => {
             title="Kitchbot: Agentic Meal Planner"
             description="A pantry savvy chat assistant that plans meals, reduces waste, simplifies shopping, and answers cooking questions instantly."
             href="https://github.com/prakashnalubolu/Kitchbot"
-            image="public\kitchbot.png"
+            image="kitchbot.png"
             index={0}
           />
           <FeatureCard
@@ -147,7 +147,7 @@ const Features = () => {
             title="Samethalu.com: RAG Search"
             description="Low latency RAG search for Telugu proverbs with vector search + metadata filters; Dockerized API and web UI."
             href="https://www.samethalu.com/"
-            image="public\samethalu.png"
+            image="samethalu.png"
             index={1}
           />
           <FeatureCard
@@ -155,7 +155,7 @@ const Features = () => {
             title="Social media Toxicity & Engagement Analysis"
             description="Analyzed 9M+ Reddit/4chan posts and concluded a correlation of 2.3x higher toxicity in top engagement."
             href="https://github.com/prakashnalubolu/Social-Media-Toxicity-and-Engagement-analysis"
-            image="public\social_media.png"
+            image="social_media.png"
             index={2}
           />
           <FeatureCard
@@ -163,7 +163,7 @@ const Features = () => {
             title="Handwritten digits recognition: OCR"
             description="On device OCR prototype with PyTorch Mobile, CameraX."
             href="https://github.com/prakashnalubolu/Digit-recognition-via-mobile-application"
-            image="public\handwrittendigits.png"
+            image="handwrittendigits.png"
             index={3}
           />
           <FeatureCard
@@ -171,7 +171,7 @@ const Features = () => {
             title="TSA Checkpoint Advisor"
             description="Instant lookup for luggage items; fast, simple UI for international and domestic travellers."
             href="https://brutalist-checkpoint-guide.lovable.app/"
-            image="public\tsa.png"
+            image="tsa.png"
             index={4}
           />
           <FeatureCard
@@ -179,7 +179,7 @@ const Features = () => {
             title="Pokemon Battle Predictions"
             description="ML model predicting battle outcomes from Pokemon attributes."
             href="https://github.com/prakashnalubolu/Pokemon-battle-predictions"
-            image="public\pokemon.jpeg"
+            image="pokemon.jpeg"
             index={5}
           />
         </div>
