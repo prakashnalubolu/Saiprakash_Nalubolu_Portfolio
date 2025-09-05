@@ -45,21 +45,50 @@ const Navbar = () => {
       )}
     >
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a 
-          href="#" 
-          className="flex items-center space-x-2"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToTop();
-          }}
-          aria-label="Saiprakash Nalubolu"
-        >
-          <img 
-            src="/logo.svg" 
-            alt="Saiprakash Nalubolu Logo" 
-            className="h-7 sm:h-8" 
-          />
-        </a>
+        {/* Left: Brand + quick download links */}
+        <div className="flex items-center gap-3">
+          <a 
+            href="#" 
+            className="flex items-center space-x-2"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToTop();
+            }}
+            aria-label="Saiprakash Nalubolu"
+          >
+            <img 
+              src="/logo.svg" 
+              alt="Saiprakash Nalubolu Logo" 
+              className="h-7 sm:h-8" 
+            />
+          </a>
+
+          {/* Desktop/Tablet quick actions */}
+          <div className="hidden md:flex items-center gap-2 ml-1">
+            <a
+              href="/Saiprakash_Nalubolu_Resume.pdf"
+              download
+              className={cn(
+                "text-xs font-medium px-2.5 py-1 rounded-md border",
+                "border-gray-300 text-gray-700 hover:border-orange-500 hover:bg-orange-500 hover:text-white",
+                "transition-colors transition-transform transform-gpu hover:scale-105 active:scale-95"
+              )}
+            >
+              Resume/CV
+            </a>
+            <a
+              href="/Saiprakash_Nalubolu_Cover_Letter.pdf"
+              download
+              className={cn(
+                "text-xs font-medium px-2.5 py-1 rounded-md border",
+                "border-gray-300 text-gray-700 hover:border-orange-500 hover:bg-orange-500 hover:text-white",
+                "transition-colors transition-transform transform-gpu hover:scale-105 active:scale-95"
+              )}
+            >
+              Cover Letter
+            </a>
+          </div>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
@@ -88,6 +117,32 @@ const Navbar = () => {
         isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none"
       )}>
         <nav className="flex flex-col space-y-8 items-center mt-8">
+          {/* Mobile quick actions */}
+          <div className="flex items-center gap-3 w-full justify-center">
+            <a
+              href="/Saiprakash_Nalubolu_Resume.pdf"
+              download
+              className="text-sm font-medium py-2 px-4 rounded-lg border border-gray-300 text-gray-700 hover:border-orange-500 hover:bg-orange-500 hover:text-white transition-colors transition-transform transform-gpu hover:scale-105 active:scale-95"
+              onClick={() => {
+                setIsMenuOpen(false);
+                document.body.style.overflow = '';
+              }}
+            >
+              Resume/CV
+            </a>
+            <a
+              href="/Saiprakash_Nalubolu_Cover_Letter.pdf"
+              download
+              className="text-sm font-medium py-2 px-4 rounded-lg border border-gray-300 text-gray-700 hover:border-orange-500 hover:bg-orange-500 hover:text-white transition-colors transition-transform transform-gpu hover:scale-105 active:scale-95"
+              onClick={() => {
+                setIsMenuOpen(false);
+                document.body.style.overflow = '';
+              }}
+            >
+              Cover Letter
+            </a>
+          </div>
+
           <a 
             href="#hero" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
