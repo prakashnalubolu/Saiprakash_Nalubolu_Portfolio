@@ -140,7 +140,7 @@ const HumanoidSection = () => {
                 <div className="w-full pr-2 md:pr-4">
                   <div className="space-y-4 text-white text-lg sm:text-xl leading-relaxed drop-shadow-[0_1px_1px_rgba(0,0,0,0.65)]">
                     <div>
-                      <p className="font-semibold text-white">Software Development Engineer in Test (Intern), MiHIN (Remote, Michigan)</p>
+                      <p className="font-semibold text-white">QA Automation(Intern), MiHIN (Remote, Michigan)</p>
                       <p className="text-white/95">Sep 2025 – Present</p>
                       <ul className="list-disc pl-5 mt-2 space-y-1">
                         <li>Building Selenium/Behave and API test suites for MiHIN’s Health Information Exchange, validating interoperability on AWS.</li>
@@ -156,7 +156,7 @@ const HumanoidSection = () => {
                       </ul>
                     </div>
                     <div>
-                      <p className="font-semibold text-white">Software Engineer in Test Automation, Citi Bank (through TCS)</p>
+                      <p className="font-semibold text-white">QA Automation Engineer, Citi Bank (through TCS)</p>
                       <p className="text-white/95">Mar 2021 – Dec 2023</p>
                       <ul className="list-disc pl-5 mt-2 space-y-1">
                         <li>Boosted automation coverage from 66% to 87% by engineering Selenium Java frameworks with Cucumber (BDD) and embedding into Jenkins/Maven CI/CD pipelines.</li>
