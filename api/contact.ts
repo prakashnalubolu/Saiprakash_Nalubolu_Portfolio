@@ -12,10 +12,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ ok: false, error: 'Missing required fields' });
     }
 
-    const to = process.env.CONTACT_TO || process.env.CONTACT_FROM || '';
-    if (!to) {
-      return res.status(500).json({ ok: false, error: 'CONTACT_TO or CONTACT_FROM env var not set' });
-    }
+    // Default recipient to owner's email if env vars are not set
+    const DEFAULT_TO = 'snalubolu@binghamton.edu';
+    const to = process.env.CONTACT_TO || process.env.CONTACT_FROM || DEFAULT_TO;
 
     const subject = `Portfolio message from ${fullName}`;
     const text = [
@@ -56,4 +55,3 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ ok: false, error: e?.message || 'Unexpected error' });
   }
 }
-

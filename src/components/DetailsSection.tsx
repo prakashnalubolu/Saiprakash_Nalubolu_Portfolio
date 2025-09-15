@@ -26,21 +26,21 @@ const DetailsSection = () => {
     }
 
     try {
-      const r = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          company: formData.company,
-        }),
-      });
-      const data = await r.json();
-      if (!r.ok || !data.ok) throw new Error(data.error || 'Failed to send');
-      toast.success('Message sent! I will get back to you soon.');
-      setFormData({ fullName: '', email: '', company: '' });
+      const to = 'snalubolu@binghamton.edu';
+      const subject = encodeURIComponent(`Portfolio contact from ${formData.fullName}`);
+      const bodyLines = [
+        `Name: ${formData.fullName}`,
+        `Email: ${formData.email}`,
+        formData.company ? `Company: ${formData.company}` : undefined,
+        '',
+        'Write your message here:'
+      ].filter(Boolean).join('\n');
+      const body = encodeURIComponent(bodyLines);
+
+      const mailtoUrl = `mailto:${to}?subject=${subject}&body=${body}`;
+      window.location.href = mailtoUrl;
     } catch (err: any) {
-      toast.error(`Could not send message: ${err?.message || 'Unknown error'}`);
+      toast.error(`Could not open email client: ${err?.message || 'Unknown error'}`);
     }
   };
   return <section id="details" className="w-full bg-white py-0">
