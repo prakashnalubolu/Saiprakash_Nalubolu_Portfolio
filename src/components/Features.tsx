@@ -149,7 +149,7 @@ const Features = () => {
           <FeatureCard
             icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 sm:w-6 sm:h-6"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>}
             title="Baaraakatta"
-            description="React + Zustand app for the Telugu card game Baaraa Katta. Also available on the Play Store."
+            description="React + Zustand app for the Telugu board game Baaraa Katta. Also available on the Play Store."
             href="https://baaraakatta.vercel.app/"
             image="Baaraakatta_tutorial_thumbnail.png"
             secondaryHref="https://play.google.com/store/apps/details?id=com.baaraakatta.app"
