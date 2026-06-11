@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Pause, Play } from "lucide-react";
+import PretextHeadline from "@/components/PretextHeadline";
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -93,16 +94,10 @@ const Hero = () => {
               <span>About me</span>
             </div>
 
-            <h1
-              className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in"
-              style={{ animationDelay: "0.3s" }}
-            >
-              {isProfessional ? (
-                <>Hi !!<br className="hidden sm:inline" />I am Saiprakash :) </>
-              ) : (
-                <>How I work &<br className="hidden sm:inline" />What I bring to team</>
-              )}
-            </h1>
+            <PretextHeadline
+              text={isProfessional ? "Hi !! I am Saiprakash :)" : "How I work & What I bring to team"}
+              className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
+            />
 
             <p
               style={{ animationDelay: "0.5s" }}
