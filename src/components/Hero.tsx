@@ -111,14 +111,14 @@ const Hero = () => {
               {isProfessional ? (
                 <>
                   <span className="block">
-                    ISTQB-certified SQA Engineer with 4 years across Fintech and Healthcare, specializing in UI and API automation testing. Looking for QA / SDET roles — ideally QA + AI hybrid teams. I've also published AI research and built agentic AI and RAG applications end-to-end.
+                    ISTQB-certified SQA Engineer with 4 years across Fintech and Healthcare, specializing in UI and API automation testing. Looking for QA / SDET roles, ideally QA + AI hybrid teams. I've also published AI research and built agentic AI and RAG applications end-to-end.
                   </span>
                   <span className="block mt-1">
                     Tech I use: Selenium, Playwright, Cucumber/Behave (BDD), Postman/Bruno, Python, Java, SQL, Docker, Jenkins/GitHub Actions; plus LangChain, PyTorch and RAG.
                   </span>
                 </>
               ) : (
-                "I'm a QA engineer who thinks like a developer — I automate the tedious parts, write tests that mirror real users, and make quality measurable from day one. I build maintainable Selenium/Playwright + BDD frameworks, validate APIs and data end-to-end, and wire tests into CI/CD so regressions surface fast. Curious, collaborative, and steady under pressure — the teammate who turns fuzzy requirements into reliable, well-tested releases."
+                "I'm a QA engineer who thinks like a developer. I automate the tedious parts, write tests that mirror real users, and make quality measurable from day one. I build maintainable Selenium/Playwright + BDD frameworks, validate APIs and data end-to-end, and wire tests into CI/CD so regressions surface fast. Curious, collaborative, and steady under pressure: the teammate who turns fuzzy requirements into reliable, well-tested releases."
               )}
             </p>
 
