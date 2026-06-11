@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { toast } from "sonner";
+import Reveal from "@/components/Reveal";
 const DetailsSection = () => {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -47,7 +48,8 @@ const DetailsSection = () => {
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
           {/* Left Card - The Details */}
-          <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant">
+          <Reveal className="h-full">
+          <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant h-full">
             {/* Card Header with background image instead of gradient */}
             <div className="relative h-36 sm:h-44 p-6 sm:p-8 flex items-end" style={{
             backgroundImage: "url('/background-section3.png')",
@@ -139,9 +141,11 @@ const DetailsSection = () => {
               </div>
             </div>
           </div>
+          </Reveal>
 
           {/* Right Card - Contact Form */}
-          <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant">
+          <Reveal className="h-full" delay={120}>
+          <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant h-full">
             {/* Card Header with background image instead of gradient */}
             <div className="relative h-36 sm:h-44 p-6 sm:p-8 flex flex-col items-start" style={{
             backgroundImage: "url('/background-section1.png')",
@@ -208,6 +212,7 @@ const DetailsSection = () => {
               </form>
             </div>
           </div>
+          </Reveal>
         </div>
       </div>
     </section>;

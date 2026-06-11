@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Pause, Play } from "lucide-react";
 import PretextHeadline from "@/components/PretextHeadline";
@@ -6,9 +6,11 @@ import PretextHeadline from "@/components/PretextHeadline";
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const fadeTimer = useRef<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isProfessional, setIsProfessional] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -17,14 +19,28 @@ const Hero = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Auto-switch between the two intros every 5 seconds (pausable)
+  // Cross-fade flip: fade the content out, swap sides/content while hidden,
+  // then fade back in — much smoother than an instant swap.
+  const flipWithFade = useCallback(() => {
+    if (fadeTimer.current) clearTimeout(fadeTimer.current);
+    setVisible(false);
+    fadeTimer.current = window.setTimeout(() => {
+      setIsProfessional((prev) => !prev);
+      setVisible(true);
+    }, 500);
+  }, []);
+
+  // Auto-switch between the two intros every 10 seconds (pausable)
   useEffect(() => {
     if (isPaused) return;
-    const interval = setInterval(() => {
-      setIsProfessional((prev) => !prev);
-    }, 5000);
+    const interval = setInterval(flipWithFade, 10000);
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, flipWithFade]);
+
+  // Clean up any pending fade timer on unmount
+  useEffect(() => () => {
+    if (fadeTimer.current) clearTimeout(fadeTimer.current);
+  }, []);
 
   useEffect(() => {
     if (isMobile) return;
@@ -82,8 +98,9 @@ const Hero = () => {
       <div className="container px-4 sm:px-6 lg:px-8" ref={containerRef}>
         <div
           className={cn(
-            "flex flex-col gap-6 lg:gap-12 items-center",
-            isProfessional ? "lg:flex-row" : "lg:flex-row-reverse"
+            "flex flex-col gap-6 lg:gap-12 items-center transition-opacity duration-500 ease-in-out",
+            isProfessional ? "lg:flex-row" : "lg:flex-row-reverse",
+            visible ? "opacity-100" : "opacity-0"
           )}
         >
           <div className="w-full lg:w-1/2">
@@ -146,14 +163,14 @@ const Hero = () => {
             <div className="absolute inset-0 bg-dark-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
             <div
               className="group relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl cursor-pointer"
-              onClick={() => setIsProfessional(!isProfessional)}
+              onClick={flipWithFade}
               role="button"
               tabIndex={0}
               aria-label="Switch between professional and personal intro"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  setIsProfessional(!isProfessional);
+                  flipWithFade();
                 }
               }}
             >

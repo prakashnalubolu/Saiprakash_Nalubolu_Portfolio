@@ -1,5 +1,6 @@
 
-import React, { useRef } from "react";
+import React from "react";
+import Reveal from "@/components/Reveal";
 
 interface TestimonialProps {
   content: string;
@@ -83,28 +84,27 @@ const TestimonialCard = ({
 };
 
 const Testimonials = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  return <section className="py-12 bg-white relative" id="testimonials" ref={sectionRef}> {/* Reduced from py-20 */}
-      <div className="section-container opacity-0 animate-on-scroll">
-        <div className="flex items-center gap-4 mb-6">
+  return <section className="py-12 bg-white relative" id="testimonials"> {/* Reduced from py-20 */}
+      <div className="section-container">
+        <Reveal className="flex items-center gap-4 mb-6">
           <div className="pulse-chip">
             <span>References</span>
           </div>
-        </div>
-        
+        </Reveal>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((t, index) => (
-            <TestimonialCard
-              key={index}
-              content={t.content}
-              author={t.author}
-              role={t.role}
-              email={t.email}
-              phone={t.phone}
-              yearsKnown={t.yearsKnown}
-              backgroundImage={t.backgroundImage}
-            />
+            <Reveal key={index} delay={index * 120} className="h-full">
+              <TestimonialCard
+                content={t.content}
+                author={t.author}
+                role={t.role}
+                email={t.email}
+                phone={t.phone}
+                yearsKnown={t.yearsKnown}
+                backgroundImage={t.backgroundImage}
+              />
+            </Reveal>
           ))}
         </div>
       </div>

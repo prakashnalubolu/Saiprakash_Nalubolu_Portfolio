@@ -1,6 +1,7 @@
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+import Reveal from "@/components/Reveal";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -14,33 +15,8 @@ interface FeatureCardProps {
 }
 
 const FeatureCard = ({ icon, title, description, index, href, image, secondaryHref, secondaryLabel }: FeatureCardProps) => {
-  const cardRef = useRef<HTMLDivElement>(null);
   const [imgSrc, setImgSrc] = useState<string | undefined>(image);
   const [triedRoot, setTriedRoot] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, []);
 
   const cardContent = (
     <>
@@ -82,7 +58,7 @@ const FeatureCard = ({ icon, title, description, index, href, image, secondaryHr
   );
 
   return (
-    <div ref={cardRef} className="opacity-0" style={{ animationDelay: `${0.1 * index}s` }}>
+    <Reveal delay={index * 120} className="h-full">
       {href ? (
         <a
           href={href}
@@ -98,51 +74,22 @@ const FeatureCard = ({ icon, title, description, index, href, image, secondaryHr
           {cardContent}
         </a>
       ) : (
-        <div className={cn("feature-card glass-card p-4 sm:p-6", "transition-all duration-300")}>{cardContent}</div>
+        <div className={cn("feature-card glass-card p-4 sm:p-6 h-full", "transition-all duration-300")}>{cardContent}</div>
       )}
-    </div>
+    </Reveal>
   );
 };
 
 const Features = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const elements = entry.target.querySelectorAll(".fade-in-element");
-            elements.forEach((el, index) => {
-              setTimeout(() => {
-                el.classList.add("animate-fade-in");
-              }, index * 100);
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-    
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-  
   return (
-    <section className="py-12 sm:py-16 md:py-20 pb-0 relative bg-gray-50" id="projects" ref={sectionRef}>
+    <section className="py-12 sm:py-16 md:py-20 pb-0 relative bg-gray-50" id="projects">
       <div className="section-container">
         <div className="text-center mb-10 sm:mb-16">
-          <div className="pulse-chip mx-auto mb-3 sm:mb-4 opacity-0 fade-in-element">
-            <span>Projects</span>
-          </div>
+          <Reveal className="flex justify-center mb-3 sm:mb-4">
+            <div className="pulse-chip">
+              <span>Projects</span>
+            </div>
+          </Reveal>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
