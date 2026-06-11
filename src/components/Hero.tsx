@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Pause, Play } from "lucide-react";
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isProfessional, setIsProfessional] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -14,6 +15,15 @@ const Hero = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Auto-switch between the two intros every 5 seconds (pausable)
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setIsProfessional((prev) => !prev);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   useEffect(() => {
     if (isMobile) return;
@@ -101,14 +111,14 @@ const Hero = () => {
               {isProfessional ? (
                 <>
                   <span className="block">
-                    An MS CS (AI/ML) student with 3 years of professional experience, looking for SDE in AI/ML engineering roles. I've built agentic AI and RAG applications. Worked on GPU accelerated training/inference and healthcare imaging.
+                    ISTQB-certified SQA Engineer with 4 years across Fintech and Healthcare, specializing in UI and API automation testing. Looking for QA / SDET roles — ideally QA + AI hybrid teams. I've also published AI research and built agentic AI and RAG applications end-to-end.
                   </span>
                   <span className="block mt-1">
-                    Tech I use: Python, Java, LangChain, PyTorch, Docker, REST/FastAPI, SQL, AWS, GitHub Actions/Jenkins.
+                    Tech I use: Selenium, Playwright, Cucumber/Behave (BDD), Postman/Bruno, Python, Java, SQL, Docker, Jenkins/GitHub Actions; plus LangChain, PyTorch and RAG.
                   </span>
                 </>
               ) : (
-                "I am a builder who ships clean, observable software. I think in APIs, keep PRs small, and make services measurable from day one. I prototype quickly, write tests that mirror real users. I am curious, collaborative, and steady under pressure the teammate who turns fuzzy ideas into crisp, running services that stay up."
+                "I'm a QA engineer who thinks like a developer — I automate the tedious parts, write tests that mirror real users, and make quality measurable from day one. I build maintainable Selenium/Playwright + BDD frameworks, validate APIs and data end-to-end, and wire tests into CI/CD so regressions surface fast. Curious, collaborative, and steady under pressure — the teammate who turns fuzzy requirements into reliable, well-tested releases."
               )}
             </p>
 
@@ -140,8 +150,17 @@ const Hero = () => {
           <div className="w-full lg:w-1/2 relative mt-6 lg:mt-0">
             <div className="absolute inset-0 bg-dark-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
             <div
-              className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl cursor-pointer"
+              className="group relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl cursor-pointer"
               onClick={() => setIsProfessional(!isProfessional)}
+              role="button"
+              tabIndex={0}
+              aria-label="Switch between professional and personal intro"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsProfessional(!isProfessional);
+                }
+              }}
             >
               <img
                 ref={imageRef}
@@ -153,8 +172,35 @@ const Hero = () => {
                   transform: isProfessional ? 'rotateY(0deg)' : 'rotateY(180deg)'
                 }}
               />
-              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
-                Click {isProfessional ? 'here' : 'here'}
+
+              {/* Tap-to-flip hint */}
+              <div className="absolute bottom-4 left-4 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium shadow-md transition-transform group-hover:scale-105">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                </span>
+                Tap to flip
+              </div>
+
+              {/* Auto-rotate pause / play control */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsPaused((prev) => !prev);
+                }}
+                aria-label={isPaused ? "Resume auto-switching" : "Pause auto-switching"}
+                title={isPaused ? "Resume auto-switching" : "Pause auto-switching"}
+                className="absolute bottom-4 right-4 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium shadow-md hover:bg-white transition-colors"
+              >
+                {isPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
+                {isPaused ? 'Play' : 'Pause'}
+              </button>
+
+              {/* Dot indicators for the two intros */}
+              <div className="absolute top-4 left-4 flex items-center gap-1.5">
+                <span className={cn("h-2 w-2 rounded-full transition-colors", isProfessional ? "bg-white" : "bg-white/40")}></span>
+                <span className={cn("h-2 w-2 rounded-full transition-colors", !isProfessional ? "bg-white" : "bg-white/40")}></span>
               </div>
             </div>
           </div>

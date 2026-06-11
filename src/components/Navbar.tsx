@@ -66,7 +66,7 @@ const Navbar = () => {
           {/* Desktop/Tablet quick actions */}
           <div className="hidden md:flex items-center gap-2 ml-1">
             <a
-              href="/Saiprakash_Nalubolu_Resume.pdf"
+              href="/SaiprakashNalubolu_QA.pdf"
               download
               className={cn(
                 "text-xs font-medium px-2.5 py-1 rounded-md border",
@@ -75,17 +75,6 @@ const Navbar = () => {
               )}
             >
               Resume/CV
-            </a>
-            <a
-              href="/Saiprakash_Nalubolu_Cover_Letter.pdf"
-              download
-              className={cn(
-                "text-xs font-medium px-2.5 py-1 rounded-md border",
-                "border-gray-300 text-gray-700 hover:border-orange-500 hover:bg-orange-500 hover:text-white",
-                "transition-colors transition-transform transform-gpu hover:scale-105 active:scale-95"
-              )}
-            >
-              Cover Letter
             </a>
           </div>
         </div>
@@ -120,7 +109,7 @@ const Navbar = () => {
           {/* Mobile quick actions */}
           <div className="flex items-center gap-3 w-full justify-center">
             <a
-              href="/Saiprakash_Nalubolu_Resume.pdf"
+              href="/SaiprakashNalubolu_QA.pdf"
               download
               className="text-sm font-medium py-2 px-4 rounded-lg border border-gray-300 text-gray-700 hover:border-orange-500 hover:bg-orange-500 hover:text-white transition-colors transition-transform transform-gpu hover:scale-105 active:scale-95"
               onClick={() => {
@@ -129,17 +118,6 @@ const Navbar = () => {
               }}
             >
               Resume/CV
-            </a>
-            <a
-              href="/Saiprakash_Nalubolu_Cover_Letter.pdf"
-              download
-              className="text-sm font-medium py-2 px-4 rounded-lg border border-gray-300 text-gray-700 hover:border-orange-500 hover:bg-orange-500 hover:text-white transition-colors transition-transform transform-gpu hover:scale-105 active:scale-95"
-              onClick={() => {
-                setIsMenuOpen(false);
-                document.body.style.overflow = '';
-              }}
-            >
-              Cover Letter
             </a>
           </div>
 

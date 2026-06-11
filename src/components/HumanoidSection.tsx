@@ -140,10 +140,13 @@ const HumanoidSection = () => {
                 <div className="w-full pr-2 md:pr-4">
                   <div className="space-y-4 text-white text-lg sm:text-xl leading-relaxed drop-shadow-[0_1px_1px_rgba(0,0,0,0.65)]">
                     <div>
-                      <p className="font-semibold text-white">QA Automation(Intern), MiHIN (Remote, Michigan)</p>
+                      <p className="font-semibold text-white">Software QA Engineer, MiHIN (Remote, Michigan)</p>
                       <p className="text-white/95">Sep 2025 – Present</p>
                       <ul className="list-disc pl-5 mt-2 space-y-1">
-                        <li>Building Selenium/Behave and API test suites for MiHIN’s Health Information Exchange, validating interoperability on AWS.</li>
+                        <li>Built Selenium + Behave (BDD) automation from scratch for Diretto, a healthcare website supporting interoperability across Michigan’s Health Information Network (MiHIN).</li>
+                        <li>Developed a Playwright automation suite to validate FHIR APIs and HL7 v2 message logs after dispatch through the HIE router.</li>
+                        <li>Reduced manual testing effort by 45% and improved QA sign‑off timeline by 66% by building scalable UI automation workflows.</li>
+                        <li>Monitored and triaged interoperability defects using AWS CloudWatch logs and Grafana dashboards for root cause analysis.</li>
                       </ul>
                     </div>
                     <div>
@@ -156,11 +159,14 @@ const HumanoidSection = () => {
                       </ul>
                     </div>
                     <div>
-                      <p className="font-semibold text-white">QA Automation Engineer, Citi Bank (through TCS)</p>
+                      <p className="font-semibold text-white">QA Automation Engineer, Citibank (through TCS)</p>
                       <p className="text-white/95">Mar 2021 – Dec 2023</p>
                       <ul className="list-disc pl-5 mt-2 space-y-1">
-                        <li>Boosted automation coverage from 66% to 87% by engineering Selenium Java frameworks with Cucumber (BDD) and embedding into Jenkins/Maven CI/CD pipelines.</li>
-                        <li>Prevented 400+ production defects by developing 1000+ automated tests for Citi's microservices‑based servicing platform.</li>
+                        <li>Led Functional, Integration, End-to-End and Regression testing for Citibank’s customer-service website across 17 different projects.</li>
+                        <li>Increased automation test coverage from 66% to 87% in 2 years by architecting modular, reusable automation test suites.</li>
+                        <li>Developed Cucumber BDD frameworks with Page Object Model (POM), boosting reusability and reducing maintenance by 24%.</li>
+                        <li>Designed and executed 1,000+ test cases, uncovering 400+ defects and improving release stability.</li>
+                        <li>Integrated automation into Jenkins CI/CD, enabling daily automated regressions and faster build verification.</li>
                         <li>Led a team of 5 to ensure accurate communication to 30M+ users by automating customer servicing message workflows.</li>
                       </ul>
                     </div>
@@ -245,11 +251,35 @@ const HumanoidSection = () => {
                 <div className="w-full pr-2 md:pr-4">
                   <ul className="list-disc pl-5 space-y-2 text-white text-base sm:text-lg leading-relaxed">
                     <li>
+                      Top 1% global finish in{" "}
+                      <a
+                        href="https://www.linkedin.com/posts/saiprakashnalubolu_tcs-codevita-hackathon-share-7460017230903156736-i4wj?utm_source=share&utm_medium=member_desktop&rcm=ACoAACV7Nj0B8d0VzPRZR4sIidN-xs-FjbnrNbg"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium underline underline-offset-2 decoration-white/60 hover:decoration-white"
+                      >
+                        TCS CodeVita S13 (2025-26)
+                      </a>
+                      , a global coding contest recognized by the Guinness Book of World Records.
+                    </li>
+                    <li>
+                      Published a{" "}
+                      <a
+                        href="https://www.sciencedirect.com/science/article/abs/pii/S001048252501652X"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium underline underline-offset-2 decoration-white/60 hover:decoration-white"
+                      >
+                        peer-reviewed article
+                      </a>{" "}
+                      in Computers in Biology and Medicine by Elsevier (ScienceDirect), Vol 199, on cell segmentation.
+                    </li>
+                    <li>
                       Finalist, XFoundry Horizons challenge (NASA NEXPLORE 2040):
                       <span className="block">Defined a high-impact Earth and Mars/Moon problem; presented solutions to NASA leaders, industry experts, and inventors.</span>
                     </li>
+                    <li>Received the Best Employee of the Month award 3 times at TCS (Citi Bank QA division).</li>
                     <li>Shipped a TSA Checkpoint Advisor web app in 7 hours; instant search for items allowed in luggage for all types of travel.</li>
-                    <li>Received 3 “On the Spot” awards from TCS.</li>
                   </ul>
                 </div>
               </div>
