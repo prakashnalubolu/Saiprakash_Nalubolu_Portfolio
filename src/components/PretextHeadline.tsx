@@ -79,10 +79,8 @@ const PretextHeadline = ({ text, className, as = "h1", animateOn = "mount" }: Pr
     let raf = 0;
     let glyphs: Glyph[] = [];
     let lastWidth = 0;
-    let hasAnimated = false;
     let staged: Staged | null = null;
     let io: IntersectionObserver | null = null;
-    let safety: ReturnType<typeof setTimeout> | null = null;
 
     const draw = (elapsed: number | null, font: string, color: string) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -155,7 +153,6 @@ const PretextHeadline = ({ text, className, as = "h1", animateOn = "mount" }: Pr
 
     const animate = () => {
       if (!staged || cancelled) return;
-      hasAnimated = true;
       const startTime = performance.now();
       const total = staged.total * STAGGER + DURATION;
       const loop = (now: number) => {
@@ -180,7 +177,11 @@ const PretextHeadline = ({ text, className, as = "h1", animateOn = "mount" }: Pr
           animate();
           return;
         }
-        // "view": wait until the headline scrolls into view, then play once.
+        // "view": show the text right away (so there's no blank gap while it
+        // scrolls up), then replay the kinetic reveal once it reaches the upper
+        // part of the viewport — where a sticky heading settles and the reader
+        // is actually looking.
+        draw(null, staged.font, staged.color);
         io = new IntersectionObserver(
           (entries) => {
             if (entries.some((e) => e.isIntersecting)) {
@@ -188,13 +189,9 @@ const PretextHeadline = ({ text, className, as = "h1", animateOn = "mount" }: Pr
               animate();
             }
           },
-          { threshold: 0.2 }
+          { threshold: 0, rootMargin: "0px 0px -55% 0px" }
         );
         io.observe(wrap);
-        // Safety net: if the observer never fires, still reveal the text.
-        safety = setTimeout(() => {
-          if (!hasAnimated && staged) draw(null, staged.font, staged.color);
-        }, 4000);
       } catch {
         setFallback(true);
       }
@@ -206,7 +203,8 @@ const PretextHeadline = ({ text, className, as = "h1", animateOn = "mount" }: Pr
       if (!w || w === lastWidth || cancelled) return;
       try {
         staged = stage();
-        if (staged && hasAnimated) draw(null, staged.font, staged.color);
+        // Redraw the final text after a resize (keeps it crisp, never blank).
+        if (staged) draw(null, staged.font, staged.color);
       } catch {
         setFallback(true);
       }
@@ -218,7 +216,6 @@ const PretextHeadline = ({ text, className, as = "h1", animateOn = "mount" }: Pr
       cancelAnimationFrame(raf);
       ro.disconnect();
       io?.disconnect();
-      if (safety) clearTimeout(safety);
     };
   }, [text, animateOn]);
 
