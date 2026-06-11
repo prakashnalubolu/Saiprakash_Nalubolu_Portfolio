@@ -5,12 +5,17 @@ import { prepareWithSegments, layoutWithLines } from "@chenglou/pretext";
 /**
  * Kinetic headline rendered on a <canvas>, with line-breaking handled by
  * @chenglou/pretext (fast, DOM-free, i18n-aware text layout). Each grapheme
- * animates in with a staggered fade + rise whenever the text changes.
+ * animates in with a staggered fade + rise.
  *
- * Accessibility / SEO: the real text is kept in a normal <h1>. Until the canvas
- * has painted (or if anything fails) the <h1> is fully visible, so the headline
- * is never missing. Once the canvas is ready the <h1> text is made transparent
- * (still present in the DOM and accessibility tree) and the canvas takes over.
+ * Accessibility / SEO: the real text is kept in a normal heading element. If
+ * anything fails the heading stays fully visible, so the headline is never
+ * missing. Once the canvas is ready the heading text is made transparent (still
+ * present in the DOM and accessibility tree) and the canvas takes over.
+ *
+ * animateOn:
+ *  - "mount" (default): plays immediately, and replays whenever `text` changes
+ *    (used for the hero, which flips between two headlines).
+ *  - "view": plays once, the first time the headline scrolls into view.
  */
 
 // Minimal local typing for Intl.Segmenter (not in this project's ES2020 lib).
@@ -33,12 +38,17 @@ const toGraphemes = (s: string): string[] =>
   segmenter ? Array.from(segmenter.segment(s), (x) => x.segment) : Array.from(s);
 
 type Glyph = { ch: string; x: number; y: number; order: number };
+type Staged = { font: string; color: string; total: number };
 
 type Props = {
   /** Plain text for the headline (line breaks are computed responsively). */
   text: string;
   /** Tailwind/utility classes that define the font (size, weight, family). */
   className?: string;
+  /** Heading level for semantics/SEO. */
+  as?: "h1" | "h2";
+  /** When to play the entrance animation. */
+  animateOn?: "mount" | "view";
 };
 
 const DURATION = 420; // ms per glyph
@@ -47,11 +57,12 @@ const RISE = 18; // px each glyph rises into place
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
-const PretextHeadline = ({ text, className }: Props) => {
+const PretextHeadline = ({ text, className, as = "h1", animateOn = "mount" }: Props) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const [fallback, setFallback] = useState(false);
+  const Heading = as;
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -68,7 +79,10 @@ const PretextHeadline = ({ text, className }: Props) => {
     let raf = 0;
     let glyphs: Glyph[] = [];
     let lastWidth = 0;
-    let render: ((animate: boolean) => void) | null = null;
+    let hasAnimated = false;
+    let staged: Staged | null = null;
+    let io: IntersectionObserver | null = null;
+    let safety: ReturnType<typeof setTimeout> | null = null;
 
     const draw = (elapsed: number | null, font: string, color: string) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -88,8 +102,9 @@ const PretextHeadline = ({ text, className }: Props) => {
       ctx.globalAlpha = 1;
     };
 
-    render = (animate: boolean) => {
-      if (cancelled) return;
+    // Measure + lay out the text and hand the visual over to the canvas.
+    const stage = (): Staged | null => {
+      if (cancelled) return null;
       const cs = getComputedStyle(heading);
       const fontSize = parseFloat(cs.fontSize) || 40;
       const lineHeight =
@@ -104,7 +119,7 @@ const PretextHeadline = ({ text, className }: Props) => {
         cs.color && cs.color !== "rgba(0, 0, 0, 0)" ? cs.color : "#1a1a1a";
 
       const width = wrap.clientWidth;
-      if (!width) return;
+      if (!width) return null;
       lastWidth = width;
 
       const prepared = prepareWithSegments(text, font, { letterSpacing });
@@ -132,44 +147,66 @@ const PretextHeadline = ({ text, className }: Props) => {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Hand the visual over to the canvas; keep <h1> for a11y/SEO.
       heading.style.color = "transparent";
       canvas.style.opacity = "1";
       wrap.style.minHeight = `${height}px`;
+      return { font, color, total: order };
+    };
 
-      if (!animate) {
-        draw(null, font, color);
-        return;
-      }
-      const start = performance.now();
-      const total = order * STAGGER + DURATION;
+    const animate = () => {
+      if (!staged || cancelled) return;
+      hasAnimated = true;
+      const startTime = performance.now();
+      const total = staged.total * STAGGER + DURATION;
       const loop = (now: number) => {
-        if (cancelled) return;
-        const elapsed = now - start;
-        draw(elapsed, font, color);
+        if (cancelled || !staged) return;
+        const elapsed = now - startTime;
+        draw(elapsed, staged.font, staged.color);
         if (elapsed < total) raf = requestAnimationFrame(loop);
-        else draw(null, font, color);
+        else draw(null, staged.font, staged.color);
       };
       raf = requestAnimationFrame(loop);
     };
 
-    const start = async () => {
+    const begin = async () => {
       try {
         const fonts = (document as Document & { fonts?: FontFaceSet }).fonts;
         if (fonts?.ready) await fonts.ready;
         if (cancelled) return;
-        render?.(true);
+        staged = stage();
+        if (!staged) return;
+
+        if (animateOn === "mount") {
+          animate();
+          return;
+        }
+        // "view": wait until the headline scrolls into view, then play once.
+        io = new IntersectionObserver(
+          (entries) => {
+            if (entries.some((e) => e.isIntersecting)) {
+              io?.disconnect();
+              animate();
+            }
+          },
+          { threshold: 0.2 }
+        );
+        io.observe(wrap);
+        // Safety net: if the observer never fires, still reveal the text.
+        safety = setTimeout(() => {
+          if (!hasAnimated && staged) draw(null, staged.font, staged.color);
+        }, 4000);
       } catch {
         setFallback(true);
       }
     };
-    start();
+    begin();
 
     const ro = new ResizeObserver(() => {
       const w = wrap.clientWidth;
       if (!w || w === lastWidth || cancelled) return;
       try {
-        render?.(false);
+        staged = stage();
+        if (staged && hasAnimated) draw(null, staged.font, staged.color);
       } catch {
         setFallback(true);
       }
@@ -180,19 +217,21 @@ const PretextHeadline = ({ text, className }: Props) => {
       cancelled = true;
       cancelAnimationFrame(raf);
       ro.disconnect();
+      io?.disconnect();
+      if (safety) clearTimeout(safety);
     };
-  }, [text]);
+  }, [text, animateOn]);
 
   return (
     <div ref={wrapRef} className="relative">
-      <h1
+      <Heading
         ref={headingRef}
         className={className}
         // When the canvas isn't driving, keep the heading fully visible.
         style={fallback ? { color: "" } : undefined}
       >
         {text}
-      </h1>
+      </Heading>
       {!fallback && (
         <canvas
           ref={canvasRef}

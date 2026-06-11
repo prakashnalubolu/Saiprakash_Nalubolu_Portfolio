@@ -1,5 +1,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
+import PretextHeadline from "@/components/PretextHeadline";
 
 const HumanoidSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -103,9 +104,12 @@ const HumanoidSection = () => {
               </div>
             </div>
             
-            <h2 className="section-title text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-1 md:mb-2">
-              Work, Study and Highlights
-            </h2>
+            <PretextHeadline
+              as="h2"
+              animateOn="view"
+              text="Work, Study and Highlights"
+              className="section-title text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-1 md:mb-2"
+            />
           </div>
           
           <div ref={cardsContainerRef} className="relative flex-1 perspective-1000">
